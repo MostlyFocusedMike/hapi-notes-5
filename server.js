@@ -20,20 +20,29 @@ const start = async () => {
             html: {
                 module: require('handlebars'),
                 /* Engine specific options go here */
+
+                /* Whether or not the engine uses layouts */
                 layout: true,
-                relativeTo: __dirname,
-                layoutPath: 'lib/templates/layout',
+                /*
+                    where the layout is located
+                    NOTE: unless an engine specific relativeTo option is given,
+                    all paths will go off the main relativeTo option
+                */
+                layoutPath: 'layout',
                 /* where your partial files are stored */
-                partialsPath: 'lib/templates/partials',
+                partialsPath: 'partials',
             },
         },
 
         /* these options configure all engines  */
 
-        /* where the path will start from */
-        relativeTo: __dirname,
+        /*
+            where the path will start from,
+            default is the current working directory
+        */
+        relativeTo: Path.join(__dirname, 'lib/templates'),
         /* this tells us where our view files are stored */
-        path: 'lib/templates',
+        path: '.',
         /*
             CRUCIAL for refreshing page and getting latest changes in dev
             without having to go and save a server file to restart the server
@@ -45,8 +54,8 @@ const start = async () => {
         /* files given no extension will be defaulted to this str */
         defaultExtension: 'html',
         /*
-            you can also use layouts info for your whole project out here
-            The issue in this instance is that Pug does uses layouts
+            you can also use layouts for your whole project out here
+            The issue in this instance is that Pug uses layouts
             differently, so if we put this down here, it will break, see the
             vision docs for more info
             https://github.com/hapijs/vision/blob/master/API.md#options
@@ -59,7 +68,7 @@ const start = async () => {
             We can put this for all engines here, since if an engine doesn't
             use helpers, it just ignores it
         */
-        helpersPath: 'lib/helpers',
+        helpersPath: 'helpers',
     });
 
     /* load routes */
@@ -78,11 +87,15 @@ const start = async () => {
     // server.route({
     //     method: 'GET',
     //     path: '/',
-    //     handler:  {
-    //         template: 'index',
-    //         context: {
-    //             topic: "Views",
-    //         },
+    //     handler: {
+    //         /* if no context is needed, give view at the top level */
+    //         // view: 'index'
+    //         view: {
+    //             template: 'index',
+    //             context: {
+    //                 topic: "Views",
+    //             },
+    //         }
     //     }
     // });
 
