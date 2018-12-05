@@ -1,7 +1,10 @@
+<!-- This is how you use a partial in handlebars  -->
+{{> header }}
+
 <div class="entry">
-  <h1>{{siteTitle}}</h1>
   <div class="body">
-    my name is {{name}}
+    This page's topic is: {{topic}}
   </div>
-  {{ test 2 3 }}
+  <p>Here is the result of my subtraction function: {{ add 2 3 }}</p>
+  <p>Here is the result of my subtraction function: {{ subtract 9 2 }}</p>
 </div>
