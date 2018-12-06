@@ -13,6 +13,7 @@ const start = async () => {
     ]);
 
     server.views({
+        /* HERE IS THE VIEW MANAGER OBJECT */
         engines: {
             /* simplest way to configure an engine */
             pug:  require('pug'),
@@ -21,7 +22,12 @@ const start = async () => {
                 module: require('handlebars'),
                 /* Engine specific options go here */
 
-                /* Whether or not the engine uses layouts */
+                /* 
+                    Whether or not the engine uses layouts 
+                    this assumes the file is layout.[ext] (ext being the engine type, so html here)
+                    if that is not the case, don't put true, put the string filename:
+                    layout: 'default.html' 
+                */
                 layout: true,
                 /*
                     where the layout is located
@@ -88,17 +94,25 @@ const start = async () => {
     //     method: 'GET',
     //     path: '/',
     //     handler: {
-    //         /* if no context is needed, give view at the top level */
-    //         // view: 'index'
     //         view: {
     //             template: 'index',
     //             context: {
     //                 topic: "Views",
     //             },
-    //         }
+    //             options: {},
+    //         },
+
     //     }
     // });
 
+    /* if you only need the template, use this handler shape */
+    // server.route({
+    //     method: 'GET',
+    //     path: '/',
+    //     handler: {
+    //         view:  'index'
+    //     }
+    // });
     /* A view that uses helper functions, check the template */
     server.route({
         method: 'GET',
